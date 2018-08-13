@@ -10,7 +10,7 @@ print_uptime() {
         boot_ts=$(sysctl kern.boottime | awk -F'[ ,]' '{print $5}')
     elif is_linux
     then
-        boot_ts="0"
+        boot_ts=$(echo "$(date +%s) - $(cat /proc/uptime | awk -F'[ .]' '{print $1}')" | bc)
     else
         boot_ts="0"
     fi
